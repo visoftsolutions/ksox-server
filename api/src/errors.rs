@@ -1,5 +1,5 @@
 #[derive(Debug, thiserror::Error)]
-pub enum WorkerError {
+pub enum ApiError {
     #[error("axum server error")]
     Hyper(#[from] hyper::Error),
 

@@ -1,0 +1,21 @@
+[package]
+name = "auth"
+edition.workspace = true
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum.workspace = true
+chrono.workspace = true
+futures.workspace = true
+hyper.workspace = true
+ring.workspace = true
+shutdown = { version = "0.1.0", path = "../packages/shutdown" }
+thiserror.workspace = true
+tokio.workspace = true
+tokio-stream.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
