@@ -16,7 +16,7 @@ async fn main() -> Result<(), errors::ApiError> {
 
     let app = app::get_app();
 
-    let addr = std::env::var("KSOX_SERVER_WORKER_ADDRESS")?.parse()?;
+    let addr = std::env::var("KSOX_SERVER_API_BIND")?.parse()?;
     tracing::debug!("server starting at {}", addr);
     axum::Server::bind(&addr)
         .serve(app.into_make_service())

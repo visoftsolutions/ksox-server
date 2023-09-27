@@ -1,5 +1,5 @@
 [package]
-name = "auth"
+name = "exchange"
 edition.workspace = true
 version.workspace = true
 authors.workspace = true
@@ -13,7 +13,7 @@ chrono.workspace = true
 futures.workspace = true
 hyper.workspace = true
 ring.workspace = true
-shutdown = { version = "0.1.0", path = "../packages/shutdown" }
+shutdown = { version = "0.1.0", path = "../shutdown" }
 thiserror.workspace = true
 tokio.workspace = true
 tokio-stream.workspace = true
