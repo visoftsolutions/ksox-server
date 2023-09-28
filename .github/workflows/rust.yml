@@ -8,14 +8,20 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  KSOX_SERVER_WORKER_ADDRESS: 0.0.0.0:80
+  KSOX_SERVER_API_BIND: 0.0.0.0:80
 
 jobs:
+  prettier:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/setup-node@v3
+      - name: Check formatting with prettier
+        run: npx prettier --check .
   fmt:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - name: Check formatting
+      - name: Check formatting with cargo fmt
         run: cargo fmt -- --check
   clippy:
     runs-on: self-hosted

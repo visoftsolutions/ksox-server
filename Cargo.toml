@@ -23,12 +23,13 @@ axum = { version = "0.6", features = [
     "tracing",
     "ws",
 ] }
-chrono = { version = "0.4.31", features = ["serde"] }
+chrono = { version = "0.4", features = ["serde"] }
 futures = "0.3"
 hyper = { version = "0.14", features = ["full"] }
-ring = "0.16.20"
+ring = "0.16"
+surrealdb = "1"
 thiserror = "1"
 tokio = { version = "1.32", features = ["full", "tracing"] }
-tokio-stream = "0.1.14"
+tokio-stream = "0.1"
 tracing = "0.1"
 tracing-subscriber = "0.3"
