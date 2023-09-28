@@ -1,4 +1,5 @@
 mod app;
+mod envs;
 mod errors;
 
 #[tokio::main]
@@ -14,11 +15,13 @@ async fn main() -> Result<(), errors::ApiError> {
         .finish();
     tracing::subscriber::set_global_default(subscriber)?;
 
+    let envs = envs::get_envs()?;
+
     let app = app::get_app();
 
-    let addr = std::env::var("KSOX_SERVER_API_BIND")?.parse()?;
+    let addr = &envs.api_bind;
     tracing::debug!("server starting at {}", addr);
-    axum::Server::bind(&addr)
+    axum::Server::bind(addr)
         .serve(app.into_make_service())
         .with_graceful_shutdown(async {
             shutdown::listen().await;
