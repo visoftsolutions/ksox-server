@@ -1,10 +1,12 @@
-use axum::{routing, Router};
+use crate::jwt::Claims;
+use axum::{middleware::from_extractor, routing, Router};
 
 pub fn get_app() -> Router {
     Router::new()
         .route("/", routing::get(http::root))
         .route("/sse", routing::get(sse::root))
         .route("/ws", routing::get(ws::root))
+        .route_layer(from_extractor::<Claims>())
 }
 
 mod http {
