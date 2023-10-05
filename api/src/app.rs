@@ -1,19 +1,24 @@
-use crate::jwt::Claims;
-use axum::{middleware::from_extractor, routing, Router};
+use axum::{routing, Router};
 
 pub fn get_app() -> Router {
     Router::new()
         .route("/", routing::get(http::root))
+        .route("/me", routing::get(http::get_subject))
         .route("/sse", routing::get(sse::root))
         .route("/ws", routing::get(ws::root))
-        .route_layer(from_extractor::<Claims>())
 }
 
 mod http {
     use chrono::Utc;
 
+    use crate::jwt::Claims;
+
     pub async fn root() -> String {
         format!("Hello from server! Time: {}\n", Utc::now())
+    }
+
+    pub async fn get_subject(claims: Claims) -> String {
+        claims.sub
     }
 }
 

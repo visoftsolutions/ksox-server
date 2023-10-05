@@ -3,8 +3,11 @@ use once_cell::sync::Lazy;
 mod app;
 mod errors;
 mod jwt;
+#[cfg(test)]
+mod tests;
+mod user;
 
-static BIND_ADDR: Lazy<String> =
+static API_BIND: Lazy<String> =
     Lazy::new(|| std::env::var("KSOX_SERVER_API_BIND").expect("KSOX_SERVER_API_BIND must be set"));
 
 #[tokio::main]
@@ -22,7 +25,7 @@ async fn main() -> Result<(), errors::ApiError> {
 
     let app = app::get_app();
 
-    let addr = BIND_ADDR.parse()?;
+    let addr = API_BIND.parse()?;
     tracing::info!("🚀 server starting at {}", addr);
     axum::Server::bind(&addr)
         .serve(app.into_make_service())

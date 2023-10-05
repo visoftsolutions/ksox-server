@@ -14,7 +14,9 @@ futures.workspace = true
 hyper.workspace = true
 jsonwebtoken.workspace = true
 once_cell.workspace = true
+proptest.workspace = true
 ring.workspace = true
+seq-macro.workspace = true
 serde.workspace = true
 shutdown = { version = "0.1.0", path = "../crates/shutdown" }
 surrealdb.workspace = true
