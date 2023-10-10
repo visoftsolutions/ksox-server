@@ -19,12 +19,12 @@ use crate::{
     jwt::{Claims, KEYS},
 };
 
-static SURREALDB_URL: Lazy<String> = Lazy::new(|| {
+static _SURREALDB_URL: Lazy<String> = Lazy::new(|| {
     std::env::var("KSOX_SERVER_SURREALDB_URL").expect("KSOX_SERVER_SURREALDB_URL must be set")
 });
 
-pub async fn get_surrealdb() -> surrealdb::Result<Surreal<Client>> {
-    Surreal::new::<Ws>(SURREALDB_URL.to_string()).await
+pub async fn _get_surrealdb() -> surrealdb::Result<Surreal<Client>> {
+    Surreal::new::<Ws>(_SURREALDB_URL.to_string()).await
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -46,13 +46,11 @@ where
             .map_err(|_| AuthError::InvalidToken)?;
         // Decode the user data
 
-        let token_data = decode::<Claims>(bearer.token(), &KEYS.decoding, &Validation::default())
+        let _token_data = decode::<Claims>(bearer.token(), &KEYS.decoding, &Validation::default())
             .map_err(|_| AuthError::InvalidToken)?;
 
         let db = Surreal::<Client>::from_ref(state);
-        let groups = db
-            .query("SELECT id FROM users WHERE ->(address WHERE type='celebrate')->post")
-            .bind(("table", "users"));
+        let _groups = db.query("").bind(("table", "users"));
 
         Ok(UserId(Uuid::new()))
     }
