@@ -4,6 +4,7 @@ members = [
     "api",
     "crates/balance",
     "crates/exchange",
+    "crates/networks",
     "crates/pay",
     "crates/shutdown",
 ]
