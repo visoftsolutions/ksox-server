@@ -1,5 +1,5 @@
 [package]
-name = "worker"
+name = "balance"
 edition.workspace = true
 version.workspace = true
 authors.workspace = true
@@ -11,8 +11,8 @@ description.workspace = true
 axum.workspace = true
 chrono.workspace = true
 futures.workspace = true
-hyper.workspace = true
-shutdown = { version = "0.1.0", path = "../packages/shutdown" }
+ring.workspace = true
+shutdown = { version = "0.1.0", path = "../shutdown" }
 thiserror.workspace = true
 tokio.workspace = true
 tokio-stream.workspace = true

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: surrealdb
+  labels:
+    app: surrealdb
+spec:
+  selector:
+    matchLabels:
+      app: surrealdb
+  template:
+    metadata:
+      labels:
+        app: surrealdb
+    spec:
+      containers:
+        - name: surrealdb
+          image: surrealdb/surrealdb:1.0.0
+          envFrom:
+            - secretRef:
+                name: secrets
+            - configMapRef:
+                name: config
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 100m
+            limits:
+              memory: 500Mi
+              cpu: 500m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: surrealdb
+spec:
+  selector:
+    app: surrealdb
+  ports:
+    - name: surrealdb-tcp
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: surrealdb-udp
+      protocol: UDP
+      port: 80
+      targetPort: 80

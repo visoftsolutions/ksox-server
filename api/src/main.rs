@@ -1,10 +1,19 @@
+use once_cell::sync::Lazy;
+
 mod app;
 mod errors;
+mod jwt;
+#[cfg(test)]
+mod tests;
+mod user;
+
+static API_BIND: Lazy<String> =
+    Lazy::new(|| std::env::var("KSOX_SERVER_API_BIND").expect("KSOX_SERVER_API_BIND must be set"));
 
 #[tokio::main]
-async fn main() -> Result<(), errors::WorkerError> {
+async fn main() -> Result<(), errors::ApiError> {
     let subscriber = tracing_subscriber::fmt()
-        .with_max_level(tracing::Level::DEBUG)
+        .with_max_level(tracing::Level::INFO)
         .with_timer(tracing_subscriber::fmt::time::uptime())
         .with_level(true)
         .with_thread_ids(true)
@@ -16,8 +25,8 @@ async fn main() -> Result<(), errors::WorkerError> {
 
     let app = app::get_app();
 
-    let addr = std::env::var("KSOX_SERVER_WORKER_ADDRESS")?.parse()?;
-    tracing::debug!("server starting at {}", addr);
+    let addr = API_BIND.parse()?;
+    tracing::info!("🚀 server starting at {}", addr);
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
         .with_graceful_shutdown(async {
