@@ -16,6 +16,7 @@ authors = ["The KSOX Team"]
 description = "The KSOX Project"
 
 [workspace.dependencies]
+async-trait = "0.1"
 axum = { version = "0.6", features = [
     "headers",
     "http2",
@@ -25,6 +26,7 @@ axum = { version = "0.6", features = [
     "ws",
 ] }
 chrono = { version = "0.4", features = ["serde"] }
+ethers = "2"
 futures = "0.3"
 hyper = { version = "0.14", features = ["full"] }
 jsonwebtoken = "8"
@@ -40,4 +42,4 @@ tokio-stream = "0.1"
 tower = "0.4"
 tracing = "0.1"
 tracing-subscriber = "0.3"
-url = "2"
+url = { version = "2", features = ["serde"] }

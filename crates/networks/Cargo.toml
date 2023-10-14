@@ -8,3 +8,10 @@ description.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+async-trait.workspace = true
+ethers.workspace = true
+serde.workspace = true
+surrealdb.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+url.workspace = true
