@@ -4,32 +4,28 @@ use ethers::{
     types::{Address, Transaction, TxHash, U256},
 };
 use serde::{Deserialize, Serialize};
-use surrealdb::{Connection, Surreal};
 use url::Url;
 
 use crate::{
     errors::EvmNetworkError,
-    traits::{EvmNetworkApi, EvmNetworkChecks, SurrealdbModel},
+    traits::{EvmNetworkApi, EvmNetworkChecks, SurrealdbNamedModel},
 };
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct EvmNetwork {
-    network_name: String,
+    name: String,
     rpc_url: Url,
 }
 impl EvmNetwork {
-    pub fn new(network_name: String, rpc_url: Url) -> Self {
-        Self {
-            network_name,
-            rpc_url,
-        }
+    pub fn new(name: String, rpc_url: Url) -> Self {
+        Self { name, rpc_url }
     }
 }
 
 #[async_trait]
 impl EvmNetworkApi for EvmNetwork {
-    fn get_network_name(self) -> String {
-        self.network_name
+    fn get_name(self) -> String {
+        self.name
     }
     fn get_rpc_url(self) -> Url {
         self.rpc_url
@@ -65,19 +61,8 @@ impl EvmNetworkChecks for EvmNetwork {
 }
 
 #[async_trait]
-impl SurrealdbModel for EvmNetwork {
+impl SurrealdbNamedModel for EvmNetwork {
     fn table_name() -> String {
         "evm-network".to_string()
-    }
-    async fn get_by_name<C: Connection>(
-        db: Surreal<C>,
-        name: &str,
-    ) -> Result<Option<Self>, EvmNetworkError> {
-        Ok(db
-            .query("SELECT * FROM $table WHERE network_name = $name")
-            .bind(("table", Self::table_name()))
-            .bind(("name", name))
-            .await?
-            .take(0)?)
     }
 }
