@@ -16,6 +16,7 @@ pub struct EvmNetwork {
     name: String,
     rpc_url: Url,
 }
+#[allow(dead_code)]
 impl EvmNetwork {
     pub fn new(name: String, rpc_url: Url) -> Self {
         Self { name, rpc_url }
