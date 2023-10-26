@@ -11,7 +11,7 @@ pub fn get_app() -> Router {
 mod http {
     use chrono::Utc;
 
-    use crate::jwt::Claims;
+    use crate::auth::jwt::models::Claims;
 
     pub async fn root() -> String {
         format!("Hello from server! Time: {}\n", Utc::now())

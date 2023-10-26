@@ -1,28 +1,35 @@
-use axum::{body::Body, http::Request};
+use axum::{routing, Router};
 use chrono::Utc;
 use futures::executor::block_on;
-use hyper::StatusCode;
+use hyper::{Body, Request, StatusCode};
 use proptest::prelude::*;
-use seq_macro::seq;
 use tower::ServiceExt;
 
-use crate::{
-    app::get_app,
-    jwt::{Claims, JwtEncodeDecode},
-};
+use crate::auth::jwt::traits::JwtEncodeDecode;
 
-seq!(N in 0..15 {
+use super::models::Claims;
+
+const TEST_ROUTE: &str = "/";
+
+pub fn app() -> Router {
+    Router::new().route(TEST_ROUTE, routing::get(get))
+}
+
+pub async fn get(claims: Claims) -> String {
+    claims.sub
+}
+
 proptest! {
     #[test]
-    fn test_me_endpoint~N(s in "[a-zA-Z0-9]{256}") {
-        let app = get_app();
+    fn test_jwt(s in "[a-zA-Z0-9]{256}") {
+        let app = app();
         let jwt = Claims {
             sub: s.to_owned(),
             exp: usize::try_from(Utc::now().timestamp()).unwrap() + 60,
         };
         let request = Request::builder()
             .method("GET")
-            .uri("/me")
+            .uri(TEST_ROUTE)
             .header("Authorization", format!("Bearer {}", jwt.encode().unwrap()))
             .body(Body::empty())
             .unwrap();
@@ -36,4 +43,3 @@ proptest! {
         assert_eq!(body_str, s);
     }
 }
-});

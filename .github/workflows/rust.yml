@@ -1,10 +1,10 @@
-name: Rust
+name: Rust Build
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
   pull_request:
-    branches: ["main"]
+    branches: ["master"]
 
 env:
   CARGO_TERM_COLOR: always
@@ -12,27 +12,31 @@ env:
   KSOX_SERVER_API_BIND: 0.0.0.0:80
 
 jobs:
-  prettier:
+  checkout:
     runs-on: self-hosted
     steps:
-      - uses: actions/setup-node@v3
-      - name: Check formatting with prettier
-        run: npx prettier --check .
+      - uses: actions/checkout@v3
   fmt:
     runs-on: self-hosted
+    needs: ["checkout"]
     steps:
-      - uses: actions/checkout@v3
       - name: Check formatting with cargo fmt
         run: cargo fmt -- --check
+  build:
+    runs-on: self-hosted
+    needs: ["checkout"]
+    steps:
+      - name: Run build
+        run: cargo build --verbose
   clippy:
     runs-on: self-hosted
+    needs: ["build"]
     steps:
-      - uses: actions/checkout@v3
-      - name: Run Clippy
+      - name: Run clippy
         run: cargo clippy -- -D warnings
   test:
     runs-on: self-hosted
+    needs: ["build"]
     steps:
-      - uses: actions/checkout@v3
       - name: Run tests
         run: cargo test --verbose

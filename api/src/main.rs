@@ -1,10 +1,9 @@
 use once_cell::sync::Lazy;
 
 mod app;
+mod auth;
 mod errors;
-mod jwt;
-#[cfg(test)]
-mod tests;
+mod shutdown;
 mod user;
 
 static API_BIND: Lazy<String> =

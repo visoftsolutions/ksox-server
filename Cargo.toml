@@ -2,11 +2,9 @@
 resolver = "2"
 members = [
     "api",
-    "crates/balance",
-    "crates/exchange",
-    "crates/networks",
-    "crates/pay",
-    "crates/shutdown",
+    "core/blockchain",
+    "core/exchange",
+    "core/transfer",
 ]
 
 [workspace.package]
@@ -29,7 +27,7 @@ chrono = { version = "0.4", features = ["serde"] }
 ethers = "2"
 futures = "0.3"
 hyper = { version = "0.14", features = ["full"] }
-jsonwebtoken = "8"
+jsonwebtoken = "9.1.0"
 once_cell = "1"
 proptest = "1"
 ring = "0.17"

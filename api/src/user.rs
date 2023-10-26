@@ -14,9 +14,9 @@ use surrealdb::{
     Surreal,
 };
 
-use crate::{
+use crate::auth::{
     errors::AuthError,
-    jwt::{Claims, KEYS},
+    jwt::models::{Claims, KEYS},
 };
 
 static _SURREALDB_URL: Lazy<String> = Lazy::new(|| {
