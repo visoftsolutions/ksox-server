@@ -7,13 +7,13 @@ description = { workspace = true }
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-uuid = { workspace = true }
 num-bigint = { version = "0.4.4", features = ["serde"] }
-serde = { version = "1.0.190", features = ["derive"] }
-num-rational = "0.4"
 num-decimal = "0.2.5"
-num-traits = "0.2.17"
 num-derive = "0.4.1"
+num-rational = "0.4"
+num-traits = "0.2.17"
+serde = { version = "1.0.190", features = ["derive"] }
+uuid = { workspace = true }
 
 [dev-dependencies]
 proptest = "1.3.1"

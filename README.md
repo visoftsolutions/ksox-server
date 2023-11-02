@@ -2,7 +2,7 @@
 
 # KSOX-SERVER
 
-[![GitHub Workflow Status Rust Build](https://github.com/visoftsolutions/ksox-server/actions/workflows/rust.yml/badge.svg)](https://github.com/visoftsolutions/ksox-server/actions/workflows/rust.yml)
+[![GitHub Workflow Status Rust Build](https://github.com/visoftsolutions/ksox-server/actions/workflows/master_build.yml/badge.svg)](https://github.com/visoftsolutions/ksox-server/actions/workflows/master_build.yml)
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 
 ## 🚀 Quick Start Guide

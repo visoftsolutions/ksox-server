@@ -387,7 +387,7 @@ mod tests {
 
     const TESTS_CASES: u32 = 1000;
     const FRACTION_BYTES: usize = 4;
-    
+
     proptest! {
         #![proptest_config(ProptestConfig::with_cases(TESTS_CASES))]
         #[test]
@@ -395,7 +395,7 @@ mod tests {
             assert_eq!(fraction, serde_json::from_str(&serde_json::to_string(&fraction).unwrap()).unwrap());
         }
     }
-    
+
     const ACCURACY: usize = 1000;
     proptest! {
         #![proptest_config(ProptestConfig::with_cases(TESTS_CASES))]
